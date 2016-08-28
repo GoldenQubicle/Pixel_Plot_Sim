@@ -15,6 +15,14 @@ void draw() {
   Simulator.Runs();
 }
 
+void mouseReleased(){
+  Zones.P4();
+}
+
+void mouseDragged() {
+  Zones.P3();
+}
+
 void mousePressed() {
   Zones.P2();
 }
