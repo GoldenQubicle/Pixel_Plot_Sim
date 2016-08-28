@@ -1,15 +1,15 @@
 class Zones {
 
-  FloatList pv, Zone;
+  FloatList pv, vertices;
   float x, y;
   int purpose, vertext;
-  
+
   boolean hover;
 
   Zones() {
     vertext = 0;
     pv = new FloatList(x, y);
-    Zone = new FloatList();
+    vertices = new FloatList();
   }
 
   void Draw() {
@@ -21,48 +21,42 @@ class Zones {
     // basic structure for ONE zone!!!
     beginShape();
     noStroke();
-    for (int i = 0; i < Zone.size(); i = i +2) {
-      vertex(Zone.get(i), Zone.get(i+1));
+    for (int i = 0; i < vertices.size(); i = i +2) {
+      vertex(vertices.get(i), vertices.get(i+1));
       endShape(CLOSE);
     }
-    
-    // need to make elipses handlers which pass new coordinates unto Zone
-    for (int i = 0; i < Zone.size(); i = i +2) {
-      ellipse(Zone.get(i), Zone.get(i+1), 10, 10);
 
-      if ((mouseX > Zone.get(i)-10) && (mouseX < Zone.get(i)+10) &&
-          (mouseY > Zone.get(i+1)-10) && (mouseY < Zone.get(i+1)+10)){
-           
-           fill(153);
-           hover = true; 
-           println();
-          } else {
-           fill(255); 
+    // need to make elipses handlers which pass new coordinates unto Zone
+    for (int i = 0; i < vertices.size(); i = i +2) {
+      ellipse(vertices.get(i), vertices.get(i+1), 10, 10);
+
+      if ((mouseX > vertices.get(i)-10) && (mouseX < vertices.get(i)+10) &&
+        (mouseY > vertices.get(i+1)-10) && (mouseY < vertices.get(i+1)+10)) {
+
+        fill(153);
+        ellipse(vertices.get(i), vertices.get(i+1), 10, 10);
+        hover = true;
+      } else {
+        fill(255);
+      }
     }
   }
-  }
 
-
+  // P1 below here works!
+  // grabs x & y coordinates on every mouseclick, stores temp in pv & writes to expanding floatlist vertices 
   void P1() {
+    //check();
     vertext();
-    pv();
-    Zone.append(pv.get(0));
-    Zone.append(pv.get(1));
-    println(vertext, Zone);
+    vertices.append(pv.get(0));
+    vertices.append(pv.get(1));
+    //println(vertext, vertices);
   }
 
- void P2() {
-   
-   
-  }
-
-
-
-  int vertext() {
+  int check() {
     return vertext = vertext + 1;
   }
 
-  FloatList pv () {
+  FloatList vertext () {
     pv = new FloatList();
     x = mouseX;
     y = mouseY;
@@ -71,8 +65,10 @@ class Zones {
     return pv;
   }
 
+  void P2() {
+  }
 
- 
+
 
   void diff() {
     // pass colors to Plot.draw
