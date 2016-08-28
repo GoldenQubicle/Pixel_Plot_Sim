@@ -4,7 +4,7 @@ class Zones {
 
   FloatList pv;
   float x, y;
-  int purpose, vertext, row;
+  int purpose, vertext, row, id;
   float xOffset; 
   float yOffset;
   boolean hover, lock;
@@ -25,10 +25,16 @@ class Zones {
     for (int i = 0; i < verts.getRowCount(); i++) {
       float x = verts.getFloat(i, 0);
       float y = verts.getFloat(i, 1);
-
+      float w = (x+20)-(x-20);
+      float h = (y+20)-(y-20);
       if ((mouseX > x-20) && (mouseX < x+20) && (mouseY > y-20) && (mouseY < y+20)) {
         hover = true;
-        fill(0);
+        if (!lock) {
+          ellipse(x, y, w, h);
+          fill(0);
+          id = i;
+          println(id,i);
+        }
       } else {
         hover = false;
         fill(255);
@@ -40,62 +46,44 @@ class Zones {
   // P1 below here works!
   // grabs x & y coordinates on every mouseclick, stores temp in pv & writes to expanding floatlist vertices 
   void P1() {
-    vertext();
-    verts.addRow();
-    verts.setFloat(row, 0, pv.get(0));
-    verts.setFloat(row, 1, pv.get(1));
-    saveTable(verts, "data/zones.csv");
-    row++;
+    if (mouseButton == LEFT) {
+      x = mouseX;
+      y = mouseY;
+      verts.addRow();
+      verts.setFloat(row, 0, x);
+      verts.setFloat(row, 1, y);
+      saveTable(verts, "data/zones.csv");
+      row++;
+      //println(row);
+    }
   }
 
-  FloatList vertext () {
-    pv = new FloatList();
-    x = mouseX;
-    y = mouseY;
-    pv.append(x);
-    pv.append(y);
-    return pv;
-  }
+
 
   void P2() {
-    if (mouseButton == RIGHT && hover) {
+    if (mouseButton == RIGHT && hover == true) {
       lock = true;
-         for (int i = 0; i < verts.getRowCount(); i++) {
-      float x = verts.getFloat(i, 0);
-      float y = verts.getFloat(i, 1);
-         }
-      ellipse(x, y, 100, 100);
     } else {
       lock = false;
     }
-      for (int i = 0; i < verts.getRowCount(); i++) {
-    xOffset = mouseX-x; 
-    yOffset = mouseY-y;
+  }
+
+  void P3() {
+    if (mouseButton == RIGHT && lock == true) {
+      x = mouseX-xOffset; 
+      y = mouseY-yOffset;
+      ellipse(x, y, 10, 10);
+      println(id);
     }
-      ellipse(x, y, 100, 100);
   }
 
-void P3() {
-  if(mouseButton == RIGHT && lock) {
-       for (int i = 0; i < verts.getRowCount(); i++) {
-       x = mouseX-xOffset; 
-       y = mouseY-yOffset;}
-       ellipse(x, y, 100, 100);
-    println(x,y);
+  void P4() {
+    if (mouseButton == RIGHT) {
+      verts.setFloat(id, 0, x);
+      verts.setFloat(id, 1, y);
+      lock = false;
+    }
   }
-}
-
-void P4() {
- if (mouseButton == RIGHT){
-   for (int i = 0; i < verts.getRowCount(); i++) {
-    verts.setFloat(i,0,x);
-    verts.setFloat(i,1,y);
-    println(verts.getRowCount());
-   }
-   
-   lock = false;
- }
-}
 
 
   void diff() {
