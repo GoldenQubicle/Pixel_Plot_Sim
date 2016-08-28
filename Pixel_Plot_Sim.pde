@@ -16,7 +16,7 @@ void draw() {
 }
 
 void mousePressed() {
-  //Zones.P1();
+  Zones.P2();
 }
 
 void mouseClicked() {
@@ -24,9 +24,9 @@ void mouseClicked() {
 }
 
 
-void mouseReleased() {   
-  Zones.P2();
-}
+//void mouseReleased() {   
+//  Zones.P2();
+//}
 
 void keyPressed() {
   Simulator.Pause();

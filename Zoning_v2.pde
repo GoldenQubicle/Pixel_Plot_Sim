@@ -3,7 +3,8 @@ class Zones {
   FloatList pv, Zone;
   float x, y;
   int purpose, vertext;
-
+  
+  boolean hover;
 
   Zones() {
     vertext = 0;
@@ -12,21 +13,33 @@ class Zones {
   }
 
   void Draw() {
-    diff();
-
-    beginShape();   
-    for (int i = 0; i < Zone.size(); i = i +2) {
-      vertex(Zone.get(i), Zone.get(i+1));
-    }
-    endShape(CLOSE);
   }
 
   void Drawn() {
 
+
+    // basic structure for ONE zone!!!
+    beginShape();
+    noStroke();
+    for (int i = 0; i < Zone.size(); i = i +2) {
+      vertex(Zone.get(i), Zone.get(i+1));
+      endShape(CLOSE);
+    }
+    
+    // need to make elipses handlers which pass new coordinates unto Zone
     for (int i = 0; i < Zone.size(); i = i +2) {
       ellipse(Zone.get(i), Zone.get(i+1), 10, 10);
-      //vertex(Zone.get(i), Zone.get(i+1));
+
+      if ((mouseX > Zone.get(i)-10) && (mouseX < Zone.get(i)+10) &&
+          (mouseY > Zone.get(i+1)-10) && (mouseY < Zone.get(i+1)+10)){
+           
+           fill(153);
+           hover = true; 
+           println();
+          } else {
+           fill(255); 
     }
+  }
   }
 
 
@@ -35,8 +48,12 @@ class Zones {
     pv();
     Zone.append(pv.get(0));
     Zone.append(pv.get(1));
-
     println(vertext, Zone);
+  }
+
+ void P2() {
+   
+   
   }
 
 
@@ -55,8 +72,7 @@ class Zones {
   }
 
 
-  void P2() {
-  }
+ 
 
   void diff() {
     // pass colors to Plot.draw
