@@ -1,5 +1,7 @@
 class Zones {
 
+  Table verts;
+  
   FloatList pv, vertices;
   float x, y;
   int purpose, vertext;
@@ -10,6 +12,7 @@ class Zones {
     vertext = 0;
     pv = new FloatList(x, y);
     vertices = new FloatList();
+    verts = new Table();
   }
 
   void Draw() {
