@@ -2,7 +2,7 @@ Zones Zones;
 Simulator Simulator;
 
 void setup() {
-  size(640, 640);
+  size(640, 640, P2D);
   background (127);
   Zones = new Zones();
   Simulator = new Simulator();
@@ -16,8 +16,13 @@ void draw() {
 }
 
 void mousePressed() {
+  //Zones.P1();
+}
+
+void mouseClicked() {
   Zones.P1();
 }
+
 
 void mouseReleased() {   
   Zones.P2();
