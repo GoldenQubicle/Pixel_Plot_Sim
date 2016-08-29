@@ -22,9 +22,15 @@ class Zones {
   }
 
   void Drawn() {
+    //beginShape();
+    //noStroke();
+    //vertex(x, y);
+    //endShape(CLOSE);
+
     for (int i = 0; i < verts.getRowCount(); i++) {
       float x = verts.getFloat(i, 0);
       float y = verts.getFloat(i, 1);
+
       float w = (x+20)-(x-20);
       float h = (y+20)-(y-20);
       if ((mouseX > x-20) && (mouseX < x+20) && (mouseY > y-20) && (mouseY < y+20)) {
@@ -33,7 +39,7 @@ class Zones {
           ellipse(x, y, w, h);
           fill(0);
           id = i;
-          println(id,i);
+          println(id, x,y);
         }
       } else {
         hover = false;
@@ -66,6 +72,9 @@ class Zones {
     } else {
       lock = false;
     }
+    xOffset = mouseX-x; 
+    yOffset = mouseY-y;
+    println(xOffset,xOffset);
   }
 
   void P3() {
@@ -73,7 +82,7 @@ class Zones {
       x = mouseX-xOffset; 
       y = mouseY-yOffset;
       ellipse(x, y, 10, 10);
-      println(id);
+      //println(id);
     }
   }
 
@@ -82,6 +91,7 @@ class Zones {
       verts.setFloat(id, 0, x);
       verts.setFloat(id, 1, y);
       lock = false;
+      println(id);
     }
   }
 
