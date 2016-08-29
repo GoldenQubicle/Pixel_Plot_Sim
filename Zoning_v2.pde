@@ -18,14 +18,19 @@ class Zones {
   }
 
   void Draw() {
-    //for (int i = 0; i < verts.getRowCount(); i++) {
+    beginShape();
+    for (int i = 0; i < verts.getRowCount(); i++) {
+      float x = verts.getFloat(i, 0);
+      float y = verts.getFloat(i, 1);
+    
+      vertex(x, y); 
+      endShape(CLOSE);
+    } 
   }
 
   void Drawn() {
-    //beginShape();
-    //noStroke();
-    //vertex(x, y);
-    //endShape(CLOSE);
+      
+
 
     for (int i = 0; i < verts.getRowCount(); i++) {
       float x = verts.getFloat(i, 0);
@@ -39,7 +44,10 @@ class Zones {
           ellipse(x, y, w, h);
           fill(0);
           id = i;
-          println(id, x,y);
+        }
+        if (mouseButton == RIGHT) {
+          lock = true; 
+          println(i);
         }
       } else {
         hover = false;
@@ -66,32 +74,28 @@ class Zones {
 
 
 
-  void P2() {
-    if (mouseButton == RIGHT && hover == true) {
-      lock = true;
-    } else {
-      lock = false;
-    }
-    xOffset = mouseX-x; 
-    yOffset = mouseY-y;
-    println(xOffset,xOffset);
-  }
+  //  void P2() {
+  //}
 
+  // draw vert_handle while being dragged
   void P3() {
     if (mouseButton == RIGHT && lock == true) {
-      x = mouseX-xOffset; 
-      y = mouseY-yOffset;
+      x = mouseX; 
+      y = mouseY;
       ellipse(x, y, 10, 10);
       //println(id);
     }
   }
 
+  // store new xy coordinates into verts
   void P4() {
-    if (mouseButton == RIGHT) {
+    if (mouseButton == RIGHT && lock == true) {
+      x = mouseX;
+      y = mouseY;
       verts.setFloat(id, 0, x);
       verts.setFloat(id, 1, y);
       lock = false;
-      println(id);
+      //println(id);
     }
   }
 

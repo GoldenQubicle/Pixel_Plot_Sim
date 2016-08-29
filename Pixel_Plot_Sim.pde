@@ -24,7 +24,7 @@ void mouseDragged() {
 }
 
 void mousePressed() {
-  Zones.P2();
+  //Zones.P2();
 }
 
 void mouseClicked() {
