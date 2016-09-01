@@ -3,41 +3,27 @@ class Zones {
   Table verts;
 
   FloatList pv;
-  float x, y;
+  float x, y, h, w;
   int purpose, vertext, row, id;
   float xOffset; 
   float yOffset;
   boolean hover, lock;
 
   Zones() {
-    vertext = 0;
+    //vertext = 0;
     pv = new FloatList(x, y);
     verts = new Table();
     verts.addColumn("x");
     verts.addColumn("y");
   }
 
-  void Draw() {
-    beginShape();
+
+  void Handles() {
     for (int i = 0; i < verts.getRowCount(); i++) {
-      float x = verts.getFloat(i, 0);
-      float y = verts.getFloat(i, 1);
-    
-      vertex(x, y); 
-      endShape(CLOSE);
-    } 
-  }
-
-  void Drawn() {
-      
-
-
-    for (int i = 0; i < verts.getRowCount(); i++) {
-      float x = verts.getFloat(i, 0);
-      float y = verts.getFloat(i, 1);
-
-      float w = (x+20)-(x-20);
-      float h = (y+20)-(y-20);
+      x = verts.getFloat(i, 0);
+      y = verts.getFloat(i, 1);
+      w = (x+20)-(x-20);
+      h = (y+20)-(y-20);
       if ((mouseX > x-20) && (mouseX < x+20) && (mouseY > y-20) && (mouseY < y+20)) {
         hover = true;
         if (!lock) {
@@ -57,6 +43,18 @@ class Zones {
     }
   }
 
+
+  void Area() {
+    diff();
+    beginShape();
+    for (int i = 0; i < verts.getRowCount(); i++) {
+      x = verts.getFloat(i, 0);
+      y = verts.getFloat(i, 1);
+      vertex(x, y); 
+      endShape(CLOSE);
+    }
+  }
+
   // P1 below here works!
   // grabs x & y coordinates on every mouseclick, stores temp in pv & writes to expanding floatlist vertices 
   void P1() {
@@ -68,7 +66,7 @@ class Zones {
       verts.setFloat(row, 1, y);
       saveTable(verts, "data/zones.csv");
       row++;
-      //println(row);
+      println(id);
     }
   }
 
@@ -101,6 +99,7 @@ class Zones {
 
 
   void diff() {
+    noStroke();
     // pass colors to Plot.draw
     if (key == 'f') {
       fill(228, 224, 161); 
