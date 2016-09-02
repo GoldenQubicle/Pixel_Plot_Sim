@@ -10,8 +10,7 @@ void setup() {
 
 void draw() {
   background (127);
-  Zones.Drawn();
-  Zones.Draw();
+  Zones.Plots();
   Simulator.Runs();
 }
 

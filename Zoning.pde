@@ -31,7 +31,11 @@ class Zones {
     purpose = 8;
   }
 
-  void Draw() {  
+  void Plots(){
+    Draw();
+    Drawn();}
+
+    void Draw() {  
     if ((mousePressed == true) && (mouseButton == LEFT)) {
       diff();
       rect(x1, y1, -(x1-mouseX), -(y1-mouseY));
