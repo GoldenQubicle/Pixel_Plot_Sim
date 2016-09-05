@@ -27,32 +27,42 @@ class Zones {
     plots.addColumn("span"); // age in Ticks since it was drawn
     plots.addRow();
     // set zones to farm
-    fill(228, 224, 161); 
+    c = color (228, 224, 161); 
     purpose = 8;
   }
 
-  void Plots(){
+  void Plots() {
+    Drawn();
     Draw();
-    Drawn();}
+  }
 
-    void Draw() {  
+  void Draw() {  
     if ((mousePressed == true) && (mouseButton == LEFT)) {
-      diff();
+      if (key == 'f') {
+        c = color(228, 224, 161); 
+        purpose = 8;
+      }
+      if (key == 'r') {
+        c = color(163, 224, 161);  
+        purpose = 1;
+      }
+      fill(c);
       rect(x1, y1, -(x1-mouseX), -(y1-mouseY));
     }
   }
 
+
+
   void Drawn() {  
     // iterate over plots.table, set color, draw plot
     for (int i = 0; i < id; i = i + 1) {
-
+      
       if (plots.getFloat(i, 5) == 1) {
         fill(163, 224, 161);
       } 
       if (plots.getFloat(i, 5) == 8) {
         fill(228, 224, 161);
       }
-
       rect(
         plots.getFloat(i, 0), 
         plots.getFloat(i, 1), 
@@ -107,19 +117,6 @@ class Zones {
         saveTable(plots, "data/zones.csv");
         id = id + 1;
       }
-    }
-  }
-
-  void diff() {
-    // pass colors to Plot.draw
-    if (key == 'f') {
-      fill(228, 224, 161); 
-      purpose = 8;
-    }
-
-    if (key == 'r') {
-      fill(163, 224, 161);  
-      purpose = 1;
     }
   }
 }
