@@ -2,7 +2,7 @@ class Simulator {
 
   boolean pause, tick, tock;
   int start, delta, pdelta, GT;
-  int T = 100; // value of Tick in milliseconds, Tick = 1 week
+  int T = 1; // value of Tick in milliseconds, Tick = 1 week
 
   String state; // runs or paused, passed to UI         
 
@@ -27,7 +27,6 @@ class Simulator {
     // runs continuously
     if ((tick == false) && (pause == false) && (pdelta == 0)) {
       delta = millis() - start;
-      tock = false;
     }
 
     // what makes it tick
@@ -56,7 +55,7 @@ class Simulator {
         tick = true;
         pdelta=0;
       }
-    }
+    }  
   }
 
   // pause and resume Game Time with spacebar
@@ -69,6 +68,7 @@ class Simulator {
       pause = true;
       //println("Paused");
       state = "Paused";
+     
     }
   }
 }

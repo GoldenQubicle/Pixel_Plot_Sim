@@ -16,7 +16,7 @@ class Calender {
   }
 
   void UI() {
-    if (Simulator.tock == true) {
+  if (Simulator.tock == true && Simulator.pause == false) {
       Week = Week + 1;
       if (Week > 13) {
         Season = season[1];

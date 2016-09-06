@@ -36,13 +36,13 @@ void draw() {
   line(200, 220, 564, 220);
 
   // graph functionality
-  if (Simulator.tock == true) {
+  if (Simulator.tock == true && Simulator.pause == false) {
     if (Calender.Week < 52) { 
       x = x + (364/52); // horizontal movement, i.e. time
-      
-      y = y + sin(a);//*2;
+
+      y = y + sin(a); // *T = this will actually set the variability!   
       a = a + inc;
-   
+
       ellipse(x, y, 10, 10);
     } else { 
       x = 200;
@@ -50,6 +50,9 @@ void draw() {
       a = 0;
       ellipse(x, y, 10, 10);
     }
+  }
+  if (Simulator.pause == true) {
+    ellipse(x, y, 10, 10);
   }
 }
 
