@@ -23,7 +23,7 @@ class Zones {
     plots.addColumn("rh");
     plots.addColumn("area");
     plots.addColumn("purpose"); 
-    plots.addColumn("tick"); // Tick at which it was drawn
+    plots.addColumn("week"); // Week at which it was drawn
     plots.addColumn("span"); // age in Ticks since it was drawn
     plots.addRow();
     // set zones to farm
@@ -47,6 +47,7 @@ class Zones {
         purpose = 1;
       }
       fill(c);
+      //noStroke();
       rect(x1, y1, -(x1-mouseX), -(y1-mouseY));
     }
   }
@@ -113,7 +114,7 @@ class Zones {
         plots.setFloat(id, 3, rh.get(0));
         plots.setFloat(id, 4, area.get(0));
         plots.setFloat(id, 5, purpose);
-        plots.setInt(id, 6, Simulator.GT);
+        plots.setInt(id, 6, Calender.Week);
         saveTable(plots, "data/zones.csv");
         id = id + 1;
       }

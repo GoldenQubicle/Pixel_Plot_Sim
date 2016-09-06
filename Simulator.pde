@@ -1,27 +1,25 @@
 class Simulator {
 
-
-  
   boolean pause, tick, tock;
   int start, delta, pdelta, GT;
-  int T = 100; // value of Tick in milliseconds 
-               // T = 1 week
-               
-  String state;             
+  int T = 100; // value of Tick in milliseconds, Tick = 1 week
+
+  String state; // runs or paused, passed to UI         
 
   Simulator() {
     state = "Paused";
     pause = true;
     tick = false;
-    pdelta = 0;
+    pdelta = 0;    
 
-    
   }
 
-// all the stuff to simulate goes here?
+  // all the stuff to simulate goes here!
   void Runs() {
     GameTime();
-        
+    Calender.UI();
+    Climate.Weather();
+    
   }
 
   void GameTime() {
@@ -58,28 +56,19 @@ class Simulator {
         tick = true;
         pdelta=0;
       }
-    } 
-
+    }
   }
 
   // pause and resume Game Time with spacebar
   void Pause() {
     if ((keyPressed == true) && (key == ' ') && (pause == true)) {
       pause = false;
-      println("Runs");
+      //println("Runs");
       state = "Runs";
     } else if ((keyPressed == true) && (key == ' ') && (pause == false)) {
       pause = true;
-      println("Paused");
+      //println("Paused");
       state = "Paused";
     }
   }
-  
-
-    
-    
-    
-    
-    
-  
 }
