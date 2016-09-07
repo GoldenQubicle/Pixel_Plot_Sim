@@ -24,6 +24,9 @@ class Climate {
       temperature = -sin(sineterm)*random(min, max);
       sineterm = sineterm + constant;
       Avarage.append(temperature);
+      if (Calender.Week >= 52){
+        sineterm = 0;
+      }
     }
   }
   
