@@ -21,6 +21,9 @@ class UI {
     white = color(255, 255, 255);
 
     // temperature graph
+    // erm, shouldn't this be moved to Climate for avarage and the like?!
+    // erm, prolly not though. . .this is just necesarry for representation on screen
+    // if I want to calculate avarages and the like, just grab temperature in Climate
     x = 200;
     y = 185;
     X = new FloatList();
@@ -66,16 +69,16 @@ class UI {
       if (Calender.Week < 52) { 
         x = x + (364/52); // horizontal movement, i.e. time
         X.append(x);
-        //y = y + norm(-Climate.temperature, 0, 1); // normalise for graphing
         y = y + Climate.temperature;
         Y.append(y);
         for (int r = 0; r < X.size(); r++) {
           ellipse(X.get(r), Y.get(r), 2, 2);
         }
       }
-      if (Calender.Week >= 52)
+      // seriously tho, I dunno why or how everything breaks when I change one tiny thing in these 3 line. . bit annoying
+      if (Calender.Week == 52) // for that matter, why does this even work?!
         x = 200;
-        y = 185;
+        y = 185; // wtf why is this so important for graph?!
     }
     
     if (Simulator.pause == true) {
