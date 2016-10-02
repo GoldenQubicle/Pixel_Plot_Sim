@@ -1,36 +1,38 @@
-Zones Zones;
-Simulator Simulator;
-UI UI;
-Calender Calender;
+/*
+CURRENT CONCERNS 
+temperate graph is not permanent, i.e. flickers when Tick is set to e.g. 100ms ~ minor tho since it pertains to ui only
+
+*/
+
+Zones zones;
+Simulator simulator;
+UI ui;
+Climate climate;
 
 void setup() {
   size(640, 640);
   background (127);
-  UI = new UI();
-  Zones = new Zones();
-  Simulator = new Simulator();
-  Calender = new Calender();
- 
+  ui = new UI();
+  zones = new Zones();
+  simulator = new Simulator();
+  climate = new Climate();
 }
 
 void draw() {
   background (127);
-  UI.elements();
-  Zones.Plots();
-  Simulator.Runs();
-  
-  Calender.blah();
-
+  simulator.Runs(); 
+  zones.Plots();  
+  ui.properUI(); 
 }
 
 void mousePressed() {
-  Zones.P1();
+  zones.P1();
 }
 
 void mouseReleased() {   
-  Zones.P2();
+  zones.P2();
 }
 
 void keyPressed() {
-  Simulator.Pause();
+  simulator.Pause();
 }   
