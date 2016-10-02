@@ -1,42 +1,47 @@
 class UI {
-
   // text elements 
   String [] text;
   color white;
-
   // temperature graph
   float x, y;
   FloatList X, Y;
   int row;
+  // calender
+  String [] season; 
+  String Season;
 
   UI() {
     // text elements 
-    text = new String[6];   
-    text[0] = "Simulator"; // runs in green; paused in yellow
+    text = new String[7];   
+    text[0] = "Simulator"; 
     text[1] = "Week";
     text[2] = "Year";
     text[3] = "Season";
     text[4] = "Temperature";
     text[5] = "Precipitation";
+    text[6] = "Water Table";
     white = color(255, 255, 255);
-
-    // temperature graph
-    // erm, shouldn't this be moved to Climate for avarage and the like?!
-    // erm, prolly not though. . .this is just necesarry for representation on screen
-    // if I want to calculate avarages and the like, just grab temperature in Climate
+    // temperature graph 
     x = 200;
     y = 185;
     X = new FloatList();
     X.set(0, x);
     Y = new FloatList();
     Y.set(0, y);
+    // calender
+    season = new String[4];
+    season[0]="Winter";
+    season[1]="Spring"; 
+    season[2]="Summer"; 
+    season[3]="Autumn"; 
+    Season = season[0];
   }
 
   void properUI() {
     elements();
     weather();
+    simulator.yearly();
   }
-
 
   void weather() {
     // text elements
@@ -48,11 +53,13 @@ class UI {
     textSize (15);
     text(text[4], 500, 20);
     text(text[5], 500, 40);
+    text(text[6], 500, 60);
     // dynamic text fields
     textAlign(LEFT);  
     textSize (15);
-    text(Climate.temperature, 505, 20);
-    text("", 505, 40);
+    text(climate.temperature, 505, 20);
+    text("NA", 505, 40); //Climate.precipitation
+    text("NA", 505, 60); //Climate.watertable
     popMatrix();
 
     // temperature graph
@@ -65,23 +72,22 @@ class UI {
     line(200, 220, 564, 220);
 
     // graph functionality
-    if (Simulator.tock == true && Simulator.pause == false) {
-      if (Calender.Week < 52) { 
+    if (simulator.tock == true && simulator.pause == false) {
+      if (simulator.Week < 52) { 
         x = x + (364/52); // horizontal movement, i.e. time
         X.append(x);
-        y = y + Climate.temperature;
+        y = y + climate.temperature;
         Y.append(y);
         for (int r = 0; r < X.size(); r++) {
           ellipse(X.get(r), Y.get(r), 2, 2);
         }
       }
       // seriously tho, I dunno why or how everything breaks when I change one tiny thing in these 3 line. . bit annoying
-      if (Calender.Week == 52) // for that matter, why does this even work?!
+      if (simulator.Week == 52) // for that matter, why does this even work?!
         x = 200;
-        y = 185; // wtf why is this so important for graph?!
+      y = 185; // wtf why is this so important for graph?!
     }
-    
-    if (Simulator.pause == true) {
+    if (simulator.pause == true) {
       for (int r = 0; r < X.size(); r++) {
         ellipse(X.get(r), Y.get(r), 2, 2);
       }
@@ -89,14 +95,10 @@ class UI {
     popMatrix();
   }
 
-
-
   void elements() {       
-
     pushMatrix();    
     fill(white);        
     translate(-500, 0); // move UI elements from right to the left on screen
-
     //static text fields
     textAlign(RIGHT);  
     textSize (15);
@@ -104,16 +106,13 @@ class UI {
     text(text[1], 580, 60);
     text(text[2], 580, 40);
     text(text[3], 580, 80);
-
-    translate(5, 0); // seperate static from dynamic fields
-
+    translate(5, 0); // seperate static above from dynamic below
     // dynamic text fields
     textAlign(LEFT);   
-    text(Simulator.state, 585, 20);  
-    text(Calender.Year, 585, 40);
-    text(Calender.Week, 585, 60);    
-    text(Calender.Season, 585, 80);
-
+    text(simulator.State, 585, 20);  
+    text(simulator.Year, 585, 40);
+    text(simulator.Week, 585, 60);    
+    text(Season, 585, 80);
     popMatrix();
   }
 }

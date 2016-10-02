@@ -1,4 +1,12 @@
 class Zones {
+  /*
+  what do I want from new improved zoning?
+   - obviously no longer be able to draw zones over each other, e.g. collision, occupied check, whatever
+   - use quad() to draw them and make each point have a handle so to resize
+   - zones need to be indicate development, after all zone =/= actually in use since that depends on hours available 
+   - be able to delete plots - with confirmation?
+   - add UI element to toggle zoning on/off 
+  */
 
   float x1, x2, y1, y2; // positions for each zone
   FloatList P1, P2, rec, rw, rh, area;
@@ -52,12 +60,9 @@ class Zones {
     }
   }
 
-
-
   void Drawn() {  
     // iterate over plots.table, set color, draw plot
     for (int i = 0; i < id; i = i + 1) {
-      
       if (plots.getFloat(i, 5) == 1) {
         fill(163, 224, 161);
       } 
@@ -78,7 +83,6 @@ class Zones {
       P1 = new FloatList();
       P1.append(x1 = mouseX);
       P1.append(y1 = mouseY);
-      //println(P1);
     }
   }
 
@@ -88,13 +92,11 @@ class Zones {
       P2 = new FloatList();
       P2.append(x2 = mouseX);
       P2.append(y2 = mouseY);
-      // println(P2);  
       rec = new FloatList();
       rec.append(x1);
       rec.append(y1);
       rec.append(x2);
       rec.append(y2);
-      // println(rec);
       rec.sub(2, rec.get(0));
       rec.sub(3, rec.get(1));
       rw.set(0, rec.get(2));
@@ -105,7 +107,6 @@ class Zones {
         area.mult(0, -1);
       }
       if (area.get(0) > 0) {
-        // println(rw);       
         // add plot coordinates, width, height & surface area to table, write table and increase plot ID
         plots.addRow();
         plots.setFloat(id, 0, x1);
@@ -114,7 +115,7 @@ class Zones {
         plots.setFloat(id, 3, rh.get(0));
         plots.setFloat(id, 4, area.get(0));
         plots.setFloat(id, 5, purpose);
-        plots.setInt(id, 6, Calender.Week);
+        plots.setInt(id, 6, simulator.Week);
         saveTable(plots, "data/zones.csv");
         id = id + 1;
       }
